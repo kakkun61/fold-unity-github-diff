@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "chrome extension to fold diff of Unity specified files on GitHub",
+    "version": "1",
+    "author": "Kazuki Okamoto",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*/*"
+            ],
+            "js": ["index.js"]
+        }
+    ]
+}

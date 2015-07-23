@@ -1,0 +1,27 @@
+{
+  "name": "fold-unity-github-diff",
+  "version": "0.0.0",
+  "description": "chrome extension to fold diff of Unity specified files on GitHub",
+  "main": "index.js",
+  "keywords": [
+    "Unity",
+    "GitHub",
+    "PureScript",
+    "Chrome"
+  ],
+  "authors": [
+    "Kazuki Okamoto"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kakkun61/fold-unity-github-diff",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-simple-dom": "~0.0.2"
+  }
+}
