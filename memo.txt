@@ -17,3 +17,5 @@ div.data highlight
 </tbody>
 
 js-expand をやめて直接 onclick イベントを拾う
+
+Array.prototype.map.call(document.getElementsByClassName("file"), function(div) { return div.getElementsByClassName("meta")[0].attributes["data-path"].nodeValue; })
