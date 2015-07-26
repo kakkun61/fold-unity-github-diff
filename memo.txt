@@ -18,4 +18,4 @@ div.data highlight
 
 js-expand をやめて直接 onclick イベントを拾う
 
-Array.prototype.map.call(document.getElementsByClassName("file"), function(div) { return div.getElementsByClassName("meta")[0].attributes["data-path"].nodeValue; })
+Array.prototype.filter.call(document.getElementsByClassName("file"), function(div) { return /(\.unity|\.meta|\.prefab)$/.test(div.getElementsByClassName("meta")[0].attributes["data-path"].nodeValue); })
