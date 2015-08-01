@@ -1,4 +1,5 @@
 module Main where
 
-main :: Eff ()
-main = 
+import Control.Monad.Eff.Console (log)
+
+main = log "Hi"
