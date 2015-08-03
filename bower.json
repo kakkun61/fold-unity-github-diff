@@ -24,7 +24,8 @@
   "dependencies": {
     "purescript-simple-dom": "b5ac1e682a",
     "purescript-strings": "~0.5.0",
-    "purescript-sets": "b2dc7b1",
+    "purescript-sets": "~0.4.2",
+    "purescript-arrays": "~0.4.0",
     "purescript-console": "~0.1.0"
   }
 }
