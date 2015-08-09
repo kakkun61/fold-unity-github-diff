@@ -1,20 +1,30 @@
 module Main where
 
-import Prelude --(Unit())
-import DOM (DOM())
-import Control.Monad.Eff (Eff())
-import Control.Monad.Eff.Console (CONSOLE(), log)
-import Data.DOM.Simple.Document (Document, title)
-import Data.DOM.Simple.Element (getElementsByClassName)
-import Data.DOM.Simple.Window (document, globalWindow)
+import Prelude
+import DOM
+import Control.Monad.Eff
+import Control.Monad.Eff.Console
+import Data.Array
+import Data.Foldable
+import Data.Maybe
+import Data.DOM.Simple.Document
+import Data.DOM.Simple.Element
+import Data.DOM.Simple.Window
 
-main :: forall e. Eff (dom :: DOM, console :: CONSOLE | e) Unit
+--main :: forall e. Eff (dom :: DOM, console :: CONSOLE | e) Unit
 main = do
+  print "fold Unity GitHub diff"
   doc <- document globalWindow
-  t <- title doc
-  log t
---  fileDivs <- getElementsByClassName "file" doc
---  log fileDivs
+  fileDivs <- getElementsByClassName "file" doc
+  traverse_ eachFile fileDivs
+  where
+    eachFile div = do
+      titleSpans <- getElementsByClassName "js-selectable-text" div
+      case head titleSpans of
+        Just titleSpan -> do
+          title <- getAttribute "title" titleSpan
+          print title
+        Nothing -> return unit
 
 
 -- getElementsByClassName :: forall eff. String -> b -> Eff (dom :: DOM | eff) (Array HTMLElement)
