@@ -7,6 +7,7 @@ import Control.Monad.Eff.Console
 import Data.Array
 import Data.Foldable
 import Data.Maybe
+import Data.String.Regex
 import Data.DOM.Simple.Document
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Window
@@ -24,6 +25,8 @@ main = do
         Just titleSpan -> do
           title <- getAttribute "title" titleSpan
           print title
+          let pattern = regex "(\\.unity|\\.meta|\\.prefab)$" noFlags
+          print $ test pattern title
         Nothing -> return unit
 
 
