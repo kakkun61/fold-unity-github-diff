@@ -47,13 +47,14 @@ main = do
         createGcTbody doc = do
           tbody <- createElement "tbody" doc
           setInnerHTML
-            "<tr class=\"file-diff-line gc\">\n\
-            \  <td class=\"diff-line-num expandable-line-num\" colspan=\"2\">\n\
-            \    <span class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\">\n\
+            "<tr class=\"js-expandable-line\" data-position=\"0\">\n\
+            \  <td class=\"blob-num blob-num-expandable\" style=\"width: 99px;\">\n\
+            \    <a class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\">\n\
             \      <span class=\"octicon octicon-unfold\"></span>\n\
-            \    </span>\n\
+            \    </a>\n\
             \  </td>\n\
-            \  <td class=\"diff-line-code\"></td>\n\
+            \  <td class=\"blob-code blob-code-hunk\"></td>\n\
+            \  </tr>\n\
             \</tr>"
             tbody
           return tbody
