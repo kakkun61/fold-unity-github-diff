@@ -1,4 +1,4 @@
-module Main where
+module Main (main, expand) where
 
 import Prelude
 import DOM
@@ -30,34 +30,50 @@ main = do
           return $ test pattern title
         Nothing -> return false
     collapse doc div = do
-      tbodyId <- ("orig-" ++) <<< (S.drop 5) <$> getAttribute "id" div
+      tid <- S.drop 5 <$> getAttribute "id" div
       tables <- getElementsByClassName "diff-table" div
       case A.head tables of
         Just table -> do
           tbodies <- children table
           case A.head tbodies of
             Just tbody -> do
-              setAttribute "id" tbodyId tbody
+              setAttribute "id" (origId tid) tbody
               setStyleAttr "display" "none" tbody
             Nothing -> return unit
-          gcTbody <- createGcTbody doc
+          gcTbody <- createGcTbody tid doc
           appendChild table gcTbody
         Nothing -> return unit
       where
-        createGcTbody doc = do
+        createGcTbody tid doc = do
           tbody <- createElement "tbody" doc
+          setAttribute "id" (replId tid) tbody
+          let template = "<tr class=\"js-expandable-line\" data-position=\"0\">\n\
+                         \  <td class=\"blob-num blob-num-expandable\" style=\"width: 99px;\">\n\
+                         \    <a class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\" onClick=\"PS.Main.expand('{id}')\">\n\
+                         \      <span class=\"octicon octicon-unfold\"></span>\n\
+                         \    </a>\n\
+                         \  </td>\n\
+                         \  <td class=\"blob-code blob-code-hunk\"></td>\n\
+                         \  </tr>\n\
+                         \</tr>"
+              pattern = regex "\\{id\\}" noFlags
           setInnerHTML
-            "<tr class=\"js-expandable-line\" data-position=\"0\">\n\
-            \  <td class=\"blob-num blob-num-expandable\" style=\"width: 99px;\">\n\
-            \    <a class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\">\n\
-            \      <span class=\"octicon octicon-unfold\"></span>\n\
-            \    </a>\n\
-            \  </td>\n\
-            \  <td class=\"blob-code blob-code-hunk\"></td>\n\
-            \  </tr>\n\
-            \</tr>"
+            (replace pattern (origId tid) template)
             tbody
           return tbody
 
+origId = ("orig-" ++)
+replId = ("repl-" ++)
 
--- getElementsByClassName :: forall eff. String -> b -> Eff (dom :: DOM | eff) (Array HTMLElement)
+expand tid = do
+  doc <- document globalWindow
+  origTBodies <- getElementsByClassName (origId tid) doc
+  replTBodies <- getElementsByClassName (replId tid) doc
+  case A.head origTBodies of
+    Just origTBody ->
+      case A.head replTBodies of
+        Just replTBody -> do
+          setStyleAttr "display" "none" replTBody
+          setStyleAttr "display" "block" origTBody
+        Nothing -> return unit
+    Nothing -> return unit
