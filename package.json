@@ -9,8 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "bower install && psc --ffi 'bower_components/purescript-*/src/**/*.js' 'bower_components/purescript-*/src/**/*.purs' src/Main.purs && psc-bundle output/*/*.js --module Main --main Main -o output/index.js && cp src/manifest.json output/",
-    "build-cmd": "bower install && psc --ffi bower_components\\purescript-*\\src\\**\\*.js bower_components\\purescript-*\\src\\**\\*.purs src\\Main.purs && psc-bundle output\\*\\*.js --module Main --main Main -o output\\index.js && copy src\\manifest.json output\\",
+    "build": "bower install && psc --ffi 'bower_components/purescript-*/src/**/*.js' 'bower_components/purescript-*/src/**/*.purs' src/Main.purs && psc-bundle output/*/*.js --module Main --main Main -o dist/index.js && cp src/manifest.json dist/",
+    "build-cmd": "bower install && psc --ffi bower_components\\purescript-*\\src\\**\\*.js bower_components\\purescript-*\\src\\**\\*.purs src\\Main.purs && psc-bundle output\\*\\*.js --module Main --main Main -o dist\\index.js && copy src\\manifest.json dist\\",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
