@@ -8,7 +8,12 @@
             "matches": [
                 "https://*/*"
             ],
-            "js": ["index.js"]
+            "js": [
+                "contentscript.js"
+            ]
         }
+    ],
+    "web_accessible_resources": [
+        "script.js"
     ]
 }

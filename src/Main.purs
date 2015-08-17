@@ -11,6 +11,7 @@ import qualified Data.String as S
 import Data.String.Regex
 import Data.DOM.Simple.Document
 import Data.DOM.Simple.Element
+import Data.DOM.Simple.Events
 import Data.DOM.Simple.Window hiding (search)
 
 --main :: forall e. Eff (dom :: DOM, console :: CONSOLE | e) Unit
@@ -42,6 +43,11 @@ main = do
             Nothing -> return unit
           gcTbody <- createGcTbody tid doc
           appendChild table gcTbody
+          addMouseEventListener MouseClickEvent (const (expand tid)) table
+--          ma <- getElementById (expandId tid) doc
+--          case ma of
+--            Just a -> addMouseEventListener MouseClickEvent (const (expand tid)) a
+--            Nothing -> return unit
         Nothing -> return unit
       where
         createGcTbody tid doc = do
@@ -49,7 +55,7 @@ main = do
           setAttribute "id" (replId tid) tbody
           let template = "<tr class=\"js-expandable-line\" data-position=\"0\">\n\
                          \  <td class=\"blob-num blob-num-expandable\" style=\"width: 99px;\">\n\
-                         \    <a class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\" onClick=\"PS.Main.expand('{id}')\">\n\
+                         \    <a id=\"{id}\" class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\">\n\
                          \      <span class=\"octicon octicon-unfold\"></span>\n\
                          \    </a>\n\
                          \  </td>\n\
@@ -58,12 +64,13 @@ main = do
                          \</tr>"
               pattern = regex "\\{id\\}" noFlags
           setInnerHTML
-            (replace pattern (origId tid) template)
+            (replace pattern (expandId tid) template)
             tbody
           return tbody
 
 origId = ("orig-" ++)
 replId = ("repl-" ++)
+expandId = ("expand-" ++)
 
 expand tid = do
   doc <- document globalWindow
