@@ -73,6 +73,7 @@ replId = ("repl-" ++)
 expandId = ("expand-" ++)
 
 expand tid = do
+  print $ "expand: " ++ tid
   doc <- document globalWindow
   origTBodies <- getElementsByClassName (origId tid) doc
   replTBodies <- getElementsByClassName (replId tid) doc
