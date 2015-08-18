@@ -55,7 +55,7 @@ main = do
           setAttribute "id" (replId tid) tbody
           let template = "<tr class=\"js-expandable-line\" data-position=\"0\">\n\
                          \  <td class=\"blob-num blob-num-expandable\" style=\"width: 99px;\">\n\
-                         \    <a id=\"{id}\" class=\"diff-expander js-expand\" title=\"Expand\" aria-label=\"Expand\">\n\
+                         \    <a id=\"{id}\" class=\"diff-expander\" title=\"Expand\" aria-label=\"Expand\">\n\
                          \      <span class=\"octicon octicon-unfold\"></span>\n\
                          \    </a>\n\
                          \  </td>\n\
