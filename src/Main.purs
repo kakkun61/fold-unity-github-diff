@@ -12,6 +12,7 @@ import Data.String.Regex
 import Data.DOM.Simple.Document
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Events
+import Data.DOM.Simple.Types
 import Data.DOM.Simple.Window hiding (search)
 
 --main :: forall e. Eff (dom :: DOM, console :: CONSOLE | e) Unit
@@ -43,11 +44,10 @@ main = do
             Nothing -> return unit
           gcTbody <- createGcTbody tid doc
           appendChild table gcTbody
-          addMouseEventListener MouseClickEvent (const (expand tid)) table
---          ma <- getElementById (expandId tid) doc
---          case ma of
---            Just a -> addMouseEventListener MouseClickEvent (const (expand tid)) a
---            Nothing -> return unit
+          ma <- getElementById (expandId tid) doc
+          case ma of
+            Just a -> addMouseEventListener MouseClickEvent (const (expand tid) :: forall e. DOMEvent -> Eff (dom :: DOM | e) Unit) a
+            Nothing -> return unit
         Nothing -> return unit
       where
         createGcTbody tid doc = do
