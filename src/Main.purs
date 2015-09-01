@@ -1,23 +1,22 @@
 module Main (main, expand) where
 
-import Prelude
-import DOM
-import Control.Monad.Eff
-import Control.Monad.Eff.Console
-import qualified Data.Array as A
-import Data.Foldable
-import Data.Maybe
-import qualified Data.String as S
-import Data.String.Regex
-import Data.DOM.Simple.Document
-import Data.DOM.Simple.Element
-import Data.DOM.Simple.Events
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Window hiding (search)
+import Prelude (Unit (), unit, (++), bind, ($), return, (<$>), const)
+import DOM (DOM ())
+import Control.Monad.Eff (Eff ())
+import Control.Monad.Eff.Console (CONSOLE ())
+import qualified Data.Array (head, filterM) as A
+import Data.Foldable (traverse_)
+import Data.Maybe (Maybe (Just, Nothing))
+import qualified Data.String (drop) as S
+import Data.String.Regex (regex, noFlags, test, replace)
+import Data.DOM.Simple.Document (createElement)
+import Data.DOM.Simple.Element (getElementsByClassName, getElementById, getAttribute, setAttribute, setStyleAttr, setInnerHTML, children, appendChild)
+import Data.DOM.Simple.Events (addMouseEventListener, MouseEventType (MouseClickEvent))
+import Data.DOM.Simple.Types (DOMEvent ())
+import Data.DOM.Simple.Window (document, globalWindow)
 
---main :: forall e. Eff (dom :: DOM, console :: CONSOLE | e) Unit
+main :: Eff (dom :: DOM, console :: CONSOLE) Unit
 main = do
-  print "fold Unity GitHub diff"
   doc <- document globalWindow
   fileDivs <- getElementsByClassName "file" doc
   shouldFoldFileDivs <- A.filterM shouldFold fileDivs
@@ -72,6 +71,7 @@ origId = ("orig-" ++)
 replId = ("repl-" ++)
 expandId = ("expand-" ++)
 
+expand :: String -> Eff (dom :: DOM) Unit
 expand tid = do
   doc <- document globalWindow
   mOrigTBody <- getElementById (origId tid) doc
