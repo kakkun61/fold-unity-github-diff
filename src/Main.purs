@@ -73,13 +73,12 @@ replId = ("repl-" ++)
 expandId = ("expand-" ++)
 
 expand tid = do
-  print $ "expand: " ++ tid
   doc <- document globalWindow
-  origTBodies <- getElementsByClassName (origId tid) doc
-  replTBodies <- getElementsByClassName (replId tid) doc
-  case A.head origTBodies of
+  mOrigTBody <- getElementById (origId tid) doc
+  mReplTBody <- getElementById (replId tid) doc
+  case mOrigTBody of
     Just origTBody ->
-      case A.head replTBodies of
+      case mReplTBody of
         Just replTBody -> do
           setStyleAttr "display" "none" replTBody
           setStyleAttr "display" "block" origTBody
