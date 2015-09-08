@@ -4,7 +4,7 @@ import Prelude (Unit (), unit, (++), bind, ($), return, (<$>), const)
 import DOM (DOM ())
 import Control.Monad.Eff (Eff ())
 import Control.Monad.Eff.Console (CONSOLE ())
-import qualified Data.Array (head, filterM) as A
+import qualified Data.Array (head, filterM, null) as A
 import Data.Foldable (traverse_)
 import Data.Maybe (Maybe (Just, Nothing))
 import qualified Data.String (drop) as S
@@ -23,13 +23,17 @@ main = do
   traverse_ (collapse doc) shouldFoldFileDivs
   where
     shouldFold div = do
-      titleSpans <- getElementsByClassName "js-selectable-text" div
-      case A.head titleSpans of
-        Just titleSpan -> do
-          title <- getAttribute "title" titleSpan
-          let pattern = regex "(\\.unity|\\.meta|\\.prefab)$" noFlags
-          return $ test pattern title
-        Nothing -> return false
+      suppressedDivs <- getElementsByClassName "image" div
+      if A.null suppressedDivs
+        then do
+          titleSpans <- getElementsByClassName "user-select-contain" div
+          case A.head titleSpans of
+            Just titleSpan -> do
+              title <- getAttribute "title" titleSpan
+              let pattern = regex "(\\.unity|\\.meta|\\.prefab)$" noFlags
+              return $ test pattern title
+            Nothing -> return false
+        else return false
     collapse doc div = do
       tid <- S.drop 5 <$> getAttribute "id" div
       tables <- getElementsByClassName "diff-table" div
