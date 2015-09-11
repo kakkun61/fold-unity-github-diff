@@ -4,7 +4,7 @@
   "description": "chrome extension to fold diff of Unity specified files on GitHub",
   "main": "index.js",
   "dependencies": {
-    "purescript": "^0.7.0",
+    "purescript": "0.7.2",
     "bower": "^1.4.1"
   },
   "devDependencies": {},
