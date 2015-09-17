@@ -19,17 +19,13 @@ main = do
   traverse_ (collapse doc) shouldFoldFileDivs
   where
     shouldFold div = do
-      suppressedDivs <- getElementsByClassName "image" div
-      if A.null suppressedDivs
-        then do
-          titleSpans <- getElementsByClassName "js-selectable-text" div
-          case A.head titleSpans of
-            Just titleSpan -> do
-              title <- getAttribute "title" titleSpan
-              let pattern = regex "(\\.unity|\\.meta|\\.prefab)$" noFlags
-              return $ test pattern title
-            Nothing -> return false
-        else return false
+      titleSpans <- getElementsByClassName "js-selectable-text" div
+      case A.head titleSpans of
+        Just titleSpan -> do
+          title <- getAttribute "title" titleSpan
+          let pattern = regex "(\\.unity|\\.prefab)$" noFlags
+          return $ test pattern title
+        Nothing -> return false
     collapse doc div = do
       dataDivs <- getElementsByClassName "data" div
       if A.null dataDivs
