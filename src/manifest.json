@@ -9,11 +9,8 @@
                 "https://*/*"
             ],
             "js": [
-                "contentscript.js"
+                "script.js"
             ]
         }
-    ],
-    "web_accessible_resources": [
-        "script.js"
     ]
 }
