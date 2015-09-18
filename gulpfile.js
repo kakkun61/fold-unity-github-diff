@@ -30,7 +30,7 @@ gulp.task('bundle', ['make'], function () {
 });
 
 gulp.task('chrome', function () {
-  return gulp.src('src/manifest.json')
+  return gulp.src(['src/manifest.json', 'src/**/*.html'])
              .pipe(newer(destination))
              .pipe(gulp.dest(destination));
 });
