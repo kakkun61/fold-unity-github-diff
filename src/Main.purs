@@ -1,12 +1,27 @@
 module Main (main) where
 
+-- prelude
 import Prelude (Unit (), unit, bind, ($), return)
+
+-- dom
 import DOM (DOM ())
+
+-- eff
 import Control.Monad.Eff (Eff ())
+
+-- arrays
 import qualified Data.Array (head, filterM, null) as A
+
+-- foldable-traversable
 import Data.Foldable (traverse_)
+
+-- maybe
 import Data.Maybe (Maybe (Just, Nothing))
+
+-- strings
 import Data.String.Regex (regex, noFlags, test)
+
+-- simple-dom
 import Data.DOM.Simple.Document (createElement)
 import Data.DOM.Simple.Element (getElementsByClassName, getAttribute, setAttribute, setInnerHTML, appendChild, classAdd)
 import Data.DOM.Simple.Window (document, globalWindow)
