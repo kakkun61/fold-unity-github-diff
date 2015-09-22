@@ -1,6 +1,6 @@
 output
 bower_components
-dist
+dest
 .psci
 
 

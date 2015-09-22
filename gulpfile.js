@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var purescript = require('gulp-purescript');
+var newer = require('gulp-newer')
 
 var sources = [
   'src/**/*.purs',
@@ -13,6 +14,8 @@ var foreigns = [
   'bower_components/purescript-*/src/**/*.js'
 ];
 
+var destination = 'dest';
+
 gulp.task('make', function () {
   return purescript.psc({ src: sources, ffi: foreigns });
 });
@@ -20,7 +23,7 @@ gulp.task('make', function () {
 gulp.task('bundle', ['make'], function () {
   return purescript.pscBundle({
       src: 'output/**/*.js',
-      output: 'dist/script.js',
+      output: destination + '/script.js',
       module: 'Main',
       main: 'Main'
   });
@@ -28,7 +31,8 @@ gulp.task('bundle', ['make'], function () {
 
 gulp.task('chrome', function () {
   return gulp.src('src/manifest.json')
-             .pipe(gulp.dest('dist'));
+             .pipe(newer(destination))
+             .pipe(gulp.dest(destination));
 });
 
 gulp.task('dotpsci', function () {
