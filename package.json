@@ -3,17 +3,15 @@
   "version": "0.0.0",
   "description": "chrome extension to fold diff of Unity specified files on GitHub",
   "main": "index.js",
-  "dependencies": {
+  "devDependencies": {
     "purescript": "0.7.2",
-    "bower": "^1.4.1"
+    "bower": "^1.4.1",
+    "gulp": "^3.9.0",
+    "gulp-purescript": "^0.7.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "setup":     "bower install",
-    "update":    "bower update",
-    "build":     "psc --ffi 'bower_components/purescript-*/src/**/*.js'   'bower_components/purescript-*/src/**/*.purs'    src/Main.purs  && psc-bundle output/*/*.js   --module Main --main Main -o dist/script.js   && cp   src/manifest.json  dist/  && cp   src/contentscript.js  dist/",
-    "build-cmd": "psc --ffi  bower_components\\purescript-*\\src\\**\\*.js bower_components\\purescript-*\\src\\**\\*.purs src\\Main.purs && psc-bundle output\\*\\*.js --module Main --main Main -o dist\\script.js && copy src\\manifest.json dist\\ && copy src\\contentscript.js dist\\",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bower": "bower",
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",

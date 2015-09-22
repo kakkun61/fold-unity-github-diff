@@ -1,6 +1,7 @@
 output
 bower_components
 dist
+.psci
 
 
 ### https://raw.github.com/github/gitignore/1587f288ee3c5132ad5e14be232d9e5784209286/Global/OSX.gitignore
