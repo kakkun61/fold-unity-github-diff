@@ -20,7 +20,7 @@ gulp.task('make', function () {
   return purescript.psc({ src: sources, ffi: foreigns });
 });
 
-gulp.task('bundle', ['make'], function () {
+gulp.task('bundleContentScripts', ['make'], function () {
   return purescript.pscBundle({
       src: 'output/**/*.js',
       output: destination + '/content_scripts.js',
@@ -28,6 +28,17 @@ gulp.task('bundle', ['make'], function () {
       main: 'DiffFolder.ContentScripts'
   });
 });
+
+gulp.task('bundleOptions', ['make'], function () {
+  return purescript.pscBundle({
+      src: 'output/**/*.js',
+      output: destination + '/options.js',
+      module: 'DiffFolder.Options',
+      main: 'DiffFolder.Options'
+  });
+});
+
+gulp.task('bundle', ['bundleContentScripts', 'bundleOptions']);
 
 gulp.task('chrome', function () {
   return gulp.src(['src/manifest.json', 'src/**/*.html'])
