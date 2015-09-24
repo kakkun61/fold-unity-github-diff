@@ -1,4 +1,4 @@
-module Main (main) where
+module DiffFolder.ContentScripts (main) where
 
 -- prelude
 import Prelude (Unit (), unit, bind, ($), return)

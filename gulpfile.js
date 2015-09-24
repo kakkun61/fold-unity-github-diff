@@ -23,9 +23,9 @@ gulp.task('make', function () {
 gulp.task('bundle', ['make'], function () {
   return purescript.pscBundle({
       src: 'output/**/*.js',
-      output: destination + '/script.js',
-      module: 'Main',
-      main: 'Main'
+      output: destination + '/content_scripts.js',
+      module: 'DiffFolder.ContentScripts',
+      main: 'DiffFolder.ContentScripts'
   });
 });
 
