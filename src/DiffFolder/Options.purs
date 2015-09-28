@@ -1,7 +1,7 @@
-module DiffFolder.Options (main) where
+module DiffFolder.Options (save) where
 
 import Prelude (return, Unit (), unit)
 import Control.Monad.Eff (Eff ())
 
-main :: Eff () Unit
-main = return unit
+save :: Eff () Unit
+save = return unit

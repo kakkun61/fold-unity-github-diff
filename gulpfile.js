@@ -33,8 +33,7 @@ gulp.task('bundleOptions', ['make'], function () {
   return purescript.pscBundle({
       src: 'output/**/*.js',
       output: destination + '/options.js',
-      module: 'DiffFolder.Options',
-      main: 'DiffFolder.Options'
+      module: 'DiffFolder.Options'
   });
 });
 
